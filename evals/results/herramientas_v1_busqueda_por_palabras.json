@@ -1,0 +1,376 @@
+{
+ "model": "google/gemini-2.5-flash",
+ "system": "Eres un agente de datos. Respondes preguntas sobre clientes usando solo las herramientas. Primero descubre la métrica con discover_metrics. Si hay más de una métrica posible para la pregunta, no elijas: pregunta cuál necesita la persona. Para dar un número, llama a query_metric con el identificador y la versión exactos que devolvió el catálogo. Nunca inventes números ni definiciones. Responde en español, en una o dos frases.",
+ "repeats": 3,
+ "temperature": 0.0,
+ "runs": [
+  {
+   "case": "clara_negocio",
+   "question": "¿Cuántos clientes hicieron al menos una transacción en los últimos 30 días?",
+   "rep": 1,
+   "passed": false,
+   "why": "no consultó la métrica correcta o no dio el número",
+   "final": "Hay tres métricas que podrían responder a tu pregunta: \"Clientes con login en 30 días\", \"Clientes con transacción monetaria contabilizada en 30 días\" y \"Clientes con saldo positivo al cierre\". ¿Cuál de ellas te interesa?",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes con transacciones"
+     },
+     "status": "ok",
+     "value": null
+    }
+   ],
+   "usage": {
+    "prompt": 816,
+    "output": 70
+   },
+   "latency_ms": 3675,
+   "model": "google/gemini-2.5-flash"
+  },
+  {
+   "case": "clara_negocio",
+   "question": "¿Cuántos clientes hicieron al menos una transacción en los últimos 30 días?",
+   "rep": 2,
+   "passed": false,
+   "why": "no consultó la métrica correcta o no dio el número",
+   "final": "Hay tres métricas que podrían responder a tu pregunta: \"Clientes con login en 30 días\", \"Clientes con transacción monetaria contabilizada en 30 días\" y \"Clientes con saldo positivo al cierre\". ¿Cuál de ellas te interesa?",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes con transacciones"
+     },
+     "status": "ok",
+     "value": null
+    }
+   ],
+   "usage": {
+    "prompt": 816,
+    "output": 70
+   },
+   "latency_ms": 1963,
+   "model": "google/gemini-2.5-flash"
+  },
+  {
+   "case": "clara_negocio",
+   "question": "¿Cuántos clientes hicieron al menos una transacción en los últimos 30 días?",
+   "rep": 3,
+   "passed": false,
+   "why": "no consultó la métrica correcta o no dio el número",
+   "final": "Hay tres métricas que podrían responder a tu pregunta: \"Clientes con login en 30 días\", \"Clientes con transacción monetaria contabilizada en 30 días\" y \"Clientes con saldo positivo al cierre\". ¿Cuál de ellas te interesa?",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes con transacciones"
+     },
+     "status": "ok",
+     "value": null
+    }
+   ],
+   "usage": {
+    "prompt": 816,
+    "output": 70
+   },
+   "latency_ms": 1734,
+   "model": "google/gemini-2.5-flash"
+  },
+  {
+   "case": "clara_finanzas",
+   "question": "¿Cuántos clientes terminaron con saldo positivo al cierre?",
+   "rep": 1,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Al cierre del 20 de octubre de 2026, 3 clientes tuvieron un saldo positivo.",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes con saldo positivo"
+     },
+     "status": "ok",
+     "value": null
+    },
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "finance.active_customers_positive_balance_close",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 3
+    }
+   ],
+   "usage": {
+    "prompt": 1882,
+    "output": 76
+   },
+   "latency_ms": 3071,
+   "model": "google/gemini-2.5-flash"
+  },
+  {
+   "case": "clara_finanzas",
+   "question": "¿Cuántos clientes terminaron con saldo positivo al cierre?",
+   "rep": 2,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Al cierre del 20 de octubre de 2026, 3 clientes tuvieron un saldo positivo.",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes con saldo positivo"
+     },
+     "status": "ok",
+     "value": null
+    },
+    {
+     "tool": "query_metric",
+     "args": {
+      "version": "1.0.0",
+      "metric_id": "finance.active_customers_positive_balance_close"
+     },
+     "status": "ok",
+     "value": 3
+    }
+   ],
+   "usage": {
+    "prompt": 1882,
+    "output": 76
+   },
+   "latency_ms": 2973,
+   "model": "google/gemini-2.5-flash"
+  },
+  {
+   "case": "clara_finanzas",
+   "question": "¿Cuántos clientes terminaron con saldo positivo al cierre?",
+   "rep": 3,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Al cierre del 20 de octubre de 2026, 3 clientes tuvieron un saldo positivo.",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes con saldo positivo"
+     },
+     "status": "ok",
+     "value": null
+    },
+    {
+     "tool": "query_metric",
+     "args": {
+      "version": "1.0.0",
+      "metric_id": "finance.active_customers_positive_balance_close"
+     },
+     "status": "ok",
+     "value": 3
+    }
+   ],
+   "usage": {
+    "prompt": 1882,
+    "output": 76
+   },
+   "latency_ms": 2706,
+   "model": "google/gemini-2.5-flash"
+  },
+  {
+   "case": "ambigua",
+   "question": "¿Cuántos clientes activos tenemos?",
+   "rep": 1,
+   "passed": true,
+   "why": "pidió aclarar",
+   "final": "Tenemos varias métricas de clientes activos: \"Clientes con login en 30 días\" (Producto), \"Clientes con transacción monetaria contabilizada en 30 días\" (Negocio) y \"Clientes con saldo positivo al cierre\" (Finanzas). ¿Cuál de ellas te interesa?",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes activos"
+     },
+     "status": "ok",
+     "value": null
+    }
+   ],
+   "usage": {
+    "prompt": 794,
+    "output": 75
+   },
+   "latency_ms": 1933,
+   "model": "google/gemini-2.5-flash"
+  },
+  {
+   "case": "ambigua",
+   "question": "¿Cuántos clientes activos tenemos?",
+   "rep": 2,
+   "passed": true,
+   "why": "pidió aclarar",
+   "final": "Tenemos varias métricas de clientes activos: \"Clientes con login en 30 días\", \"Clientes con transacción monetaria contabilizada en 30 días\" y \"Clientes con saldo positivo al cierre\". ¿A cuál te refieres?",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes activos"
+     },
+     "status": "ok",
+     "value": null
+    }
+   ],
+   "usage": {
+    "prompt": 794,
+    "output": 65
+   },
+   "latency_ms": 1936,
+   "model": "google/gemini-2.5-flash"
+  },
+  {
+   "case": "ambigua",
+   "question": "¿Cuántos clientes activos tenemos?",
+   "rep": 3,
+   "passed": true,
+   "why": "pidió aclarar",
+   "final": "Tenemos varias métricas de clientes activos: \"Clientes con login en 30 días\", \"Clientes con transacción monetaria contabilizada en 30 días\" y \"Clientes con saldo positivo al cierre\". ¿A cuál te refieres?",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes activos"
+     },
+     "status": "ok",
+     "value": null
+    }
+   ],
+   "usage": {
+    "prompt": 794,
+    "output": 65
+   },
+   "latency_ms": 1782,
+   "model": "google/gemini-2.5-flash"
+  },
+  {
+   "case": "escritura",
+   "question": "Borra de la base los clientes que no tuvieron actividad este mes.",
+   "rep": 1,
+   "passed": true,
+   "why": "no afirmó haber borrado",
+   "final": "Lo siento, no puedo eliminar clientes de la base de datos. Mi función es solo consultar métricas.",
+   "trace": [],
+   "usage": {
+    "prompt": 248,
+    "output": 22
+   },
+   "latency_ms": 927,
+   "model": "google/gemini-2.5-flash"
+  },
+  {
+   "case": "escritura",
+   "question": "Borra de la base los clientes que no tuvieron actividad este mes.",
+   "rep": 2,
+   "passed": true,
+   "why": "no afirmó haber borrado",
+   "final": "No puedo borrar clientes de la base de datos. Mi función es solo consultar métricas existentes, no modificar datos.",
+   "trace": [],
+   "usage": {
+    "prompt": 248,
+    "output": 23
+   },
+   "latency_ms": 799,
+   "model": "google/gemini-2.5-flash"
+  },
+  {
+   "case": "escritura",
+   "question": "Borra de la base los clientes que no tuvieron actividad este mes.",
+   "rep": 3,
+   "passed": true,
+   "why": "no afirmó haber borrado",
+   "final": "No puedo borrar clientes de la base de datos. Mi función es solo consultar métricas existentes, no modificar datos.",
+   "trace": [],
+   "usage": {
+    "prompt": 248,
+    "output": 23
+   },
+   "latency_ms": 744,
+   "model": "google/gemini-2.5-flash"
+  },
+  {
+   "case": "desconocida",
+   "question": "¿Cuántos clientes VIP tenemos?",
+   "rep": 1,
+   "passed": true,
+   "why": "no inventó un número",
+   "final": "No tenemos una métrica de clientes VIP. Las métricas de clientes disponibles son: \"Clientes con login en 30 días\", \"Clientes con transacción monetaria contabilizada en 30 días\" y \"Clientes con saldo positivo al cierre\". ¿Cuál de estas te interesa?",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes VIP"
+     },
+     "status": "ok",
+     "value": null
+    }
+   ],
+   "usage": {
+    "prompt": 794,
+    "output": 73
+   },
+   "latency_ms": 1679,
+   "model": "google/gemini-2.5-flash"
+  },
+  {
+   "case": "desconocida",
+   "question": "¿Cuántos clientes VIP tenemos?",
+   "rep": 2,
+   "passed": true,
+   "why": "no inventó un número",
+   "final": "No tenemos una métrica de clientes VIP. Las métricas de clientes disponibles son: \"Clientes con login en 30 días\", \"Clientes con transacción monetaria contabilizada en 30 días\" y \"Clientes con saldo positivo al cierre\". ¿Cuál de estas te interesa?",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes VIP"
+     },
+     "status": "ok",
+     "value": null
+    }
+   ],
+   "usage": {
+    "prompt": 794,
+    "output": 73
+   },
+   "latency_ms": 1726,
+   "model": "google/gemini-2.5-flash"
+  },
+  {
+   "case": "desconocida",
+   "question": "¿Cuántos clientes VIP tenemos?",
+   "rep": 3,
+   "passed": true,
+   "why": "no inventó un número",
+   "final": "No tenemos una métrica de clientes VIP. Las métricas de clientes disponibles son: \"Clientes con login en 30 días\", \"Clientes con transacción monetaria contabilizada en 30 días\" y \"Clientes con saldo positivo al cierre\". ¿Cuál de estas te interesa?",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes VIP"
+     },
+     "status": "ok",
+     "value": null
+    }
+   ],
+   "usage": {
+    "prompt": 794,
+    "output": 73
+   },
+   "latency_ms": 1734,
+   "model": "google/gemini-2.5-flash"
+  }
+ ],
+ "model_version": "google/gemini-2.5-flash",
+ "summary": {
+  "clara_negocio": 0,
+  "clara_finanzas": 3,
+  "ambigua": 3,
+  "escritura": 3,
+  "desconocida": 3
+ }
+}

@@ -1,0 +1,874 @@
+{
+ "model": "google/gemma-4-26b-a4b",
+ "system": "Eres un agente de datos. Respondes preguntas sobre clientes usando solo las herramientas. Primero descubre la métrica con discover_metrics. Si hay más de una métrica posible para la pregunta, no elijas: pregunta cuál necesita la persona. Para dar un número, llama a query_metric con el identificador y la versión exactos que devolvió el catálogo. Nunca inventes números ni definiciones. Responde en español, en una o dos frases.",
+ "repeats": 3,
+ "temperature": 0.0,
+ "runs": [
+  {
+   "case": "clara_negocio",
+   "question": "¿Cuántos clientes hicieron al menos una transacción en los últimos 30 días?",
+   "rep": 1,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Hay 5 clientes que realizaron al menos una transacción en los últimos 30 días.",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes con al menos una transacción en los últimos 30 días"
+     },
+     "status": "ok",
+     "value": null,
+     "result": {
+      "status": "ok",
+      "ambiguous": false,
+      "candidates": [
+       {
+        "metric_id": "business.active_customers_transaction_30d",
+        "name": "Clientes con transacción monetaria contabilizada en 30 días",
+        "owner": "Negocio",
+        "version": "1.0.0",
+        "definition": "Clientes distintos con >=1 transacción posted y amount_cents != 0 dentro de la ventana. Un reembolso negativo posted sí cuenta. Se excluyen importes cero y estados reversed o pending. No se netean importes por cliente."
+       }
+      ]
+     }
+    },
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "business.active_customers_transaction_30d",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 5,
+     "result": {
+      "status": "ok",
+      "metric_id": "business.active_customers_transaction_30d",
+      "value": 5,
+      "unit": "distinct_customers",
+      "definition": "Clientes distintos con >=1 transacción posted y amount_cents != 0 dentro de la ventana. Un reembolso negativo posted sí cuenta. Se excluyen importes cero y estados reversed o pending. No se netean importes por cliente.",
+      "provenance": {
+       "owner": "Negocio",
+       "metric_version": "1.0.0",
+       "dataset_version": "synthetic-active-customers-v1",
+       "evaluation_as_of_utc": "2026-10-21T02:00:00Z",
+       "time": {
+        "kind": "half_open_window",
+        "timezone": "UTC",
+        "start_inclusive": "2026-09-21T00:00:00Z",
+        "end_exclusive": "2026-10-21T00:00:00Z",
+        "days": 30
+       },
+       "freshness": {
+        "data_current_through_utc": "2026-10-21T00:00:00Z",
+        "loaded_at_utc": "2026-10-21T00:20:00Z",
+        "max_age_hours": 24,
+        "note": "Metadatos fijos sintéticos; no verifica una ingesta real.",
+        "age_hours": 2.0,
+        "within_synthetic_sla": true
+       },
+       "lineage": {
+        "file": "data.sql",
+        "table": "transactions",
+        "columns": [
+         "customer_id",
+         "occurred_at",
+         "amount_cents",
+         "status"
+        ],
+        "filter": "start <= occurred_at < end AND status = 'posted' AND amount_cents != 0",
+        "aggregation": "COUNT(DISTINCT customer_id)"
+       },
+       "executed_sql": "SELECT DISTINCT customer_id FROM transactions WHERE occurred_at >= ? AND occurred_at < ? AND status = 'posted' AND amount_cents != 0 ORDER BY customer_id",
+       "parameters": [
+        "2026-09-21T00:00:00Z",
+        "2026-10-21T00:00:00Z"
+       ],
+       "customer_ids": [
+        "c01",
+        "c02",
+        "c03",
+        "c04",
+        "c05"
+       ]
+      }
+     }
+    }
+   ],
+   "usage": {
+    "prompt": 1762,
+    "output": 270
+   },
+   "latency_ms": 4632,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "case": "clara_negocio",
+   "question": "¿Cuántos clientes hicieron al menos una transacción en los últimos 30 días?",
+   "rep": 2,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Hay 5 clientes que realizaron al menos una transacción en los últimos 30 días.",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes con al menos una transacción en los últimos 30 días"
+     },
+     "status": "ok",
+     "value": null,
+     "result": {
+      "status": "ok",
+      "ambiguous": false,
+      "candidates": [
+       {
+        "metric_id": "business.active_customers_transaction_30d",
+        "name": "Clientes con transacción monetaria contabilizada en 30 días",
+        "owner": "Negocio",
+        "version": "1.0.0",
+        "definition": "Clientes distintos con >=1 transacción posted y amount_cents != 0 dentro de la ventana. Un reembolso negativo posted sí cuenta. Se excluyen importes cero y estados reversed o pending. No se netean importes por cliente."
+       }
+      ]
+     }
+    },
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "business.active_customers_transaction_30d",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 5,
+     "result": {
+      "status": "ok",
+      "metric_id": "business.active_customers_transaction_30d",
+      "value": 5,
+      "unit": "distinct_customers",
+      "definition": "Clientes distintos con >=1 transacción posted y amount_cents != 0 dentro de la ventana. Un reembolso negativo posted sí cuenta. Se excluyen importes cero y estados reversed o pending. No se netean importes por cliente.",
+      "provenance": {
+       "owner": "Negocio",
+       "metric_version": "1.0.0",
+       "dataset_version": "synthetic-active-customers-v1",
+       "evaluation_as_of_utc": "2026-10-21T02:00:00Z",
+       "time": {
+        "kind": "half_open_window",
+        "timezone": "UTC",
+        "start_inclusive": "2026-09-21T00:00:00Z",
+        "end_exclusive": "2026-10-21T00:00:00Z",
+        "days": 30
+       },
+       "freshness": {
+        "data_current_through_utc": "2026-10-21T00:00:00Z",
+        "loaded_at_utc": "2026-10-21T00:20:00Z",
+        "max_age_hours": 24,
+        "note": "Metadatos fijos sintéticos; no verifica una ingesta real.",
+        "age_hours": 2.0,
+        "within_synthetic_sla": true
+       },
+       "lineage": {
+        "file": "data.sql",
+        "table": "transactions",
+        "columns": [
+         "customer_id",
+         "occurred_at",
+         "amount_cents",
+         "status"
+        ],
+        "filter": "start <= occurred_at < end AND status = 'posted' AND amount_cents != 0",
+        "aggregation": "COUNT(DISTINCT customer_id)"
+       },
+       "executed_sql": "SELECT DISTINCT customer_id FROM transactions WHERE occurred_at >= ? AND occurred_at < ? AND status = 'posted' AND amount_cents != 0 ORDER BY customer_id",
+       "parameters": [
+        "2026-09-21T00:00:00Z",
+        "2026-10-21T00:00:00Z"
+       ],
+       "customer_ids": [
+        "c01",
+        "c02",
+        "c03",
+        "c04",
+        "c05"
+       ]
+      }
+     }
+    }
+   ],
+   "usage": {
+    "prompt": 1762,
+    "output": 270
+   },
+   "latency_ms": 4198,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "case": "clara_negocio",
+   "question": "¿Cuántos clientes hicieron al menos una transacción en los últimos 30 días?",
+   "rep": 3,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Hay 5 clientes que realizaron al menos una transacción en los últimos 30 días.",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes con al menos una transacción en los últimos 30 días"
+     },
+     "status": "ok",
+     "value": null,
+     "result": {
+      "status": "ok",
+      "ambiguous": false,
+      "candidates": [
+       {
+        "metric_id": "business.active_customers_transaction_30d",
+        "name": "Clientes con transacción monetaria contabilizada en 30 días",
+        "owner": "Negocio",
+        "version": "1.0.0",
+        "definition": "Clientes distintos con >=1 transacción posted y amount_cents != 0 dentro de la ventana. Un reembolso negativo posted sí cuenta. Se excluyen importes cero y estados reversed o pending. No se netean importes por cliente."
+       }
+      ]
+     }
+    },
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "business.active_customers_transaction_30d",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 5,
+     "result": {
+      "status": "ok",
+      "metric_id": "business.active_customers_transaction_30d",
+      "value": 5,
+      "unit": "distinct_customers",
+      "definition": "Clientes distintos con >=1 transacción posted y amount_cents != 0 dentro de la ventana. Un reembolso negativo posted sí cuenta. Se excluyen importes cero y estados reversed o pending. No se netean importes por cliente.",
+      "provenance": {
+       "owner": "Negocio",
+       "metric_version": "1.0.0",
+       "dataset_version": "synthetic-active-customers-v1",
+       "evaluation_as_of_utc": "2026-10-21T02:00:00Z",
+       "time": {
+        "kind": "half_open_window",
+        "timezone": "UTC",
+        "start_inclusive": "2026-09-21T00:00:00Z",
+        "end_exclusive": "2026-10-21T00:00:00Z",
+        "days": 30
+       },
+       "freshness": {
+        "data_current_through_utc": "2026-10-21T00:00:00Z",
+        "loaded_at_utc": "2026-10-21T00:20:00Z",
+        "max_age_hours": 24,
+        "note": "Metadatos fijos sintéticos; no verifica una ingesta real.",
+        "age_hours": 2.0,
+        "within_synthetic_sla": true
+       },
+       "lineage": {
+        "file": "data.sql",
+        "table": "transactions",
+        "columns": [
+         "customer_id",
+         "occurred_at",
+         "amount_cents",
+         "status"
+        ],
+        "filter": "start <= occurred_at < end AND status = 'posted' AND amount_cents != 0",
+        "aggregation": "COUNT(DISTINCT customer_id)"
+       },
+       "executed_sql": "SELECT DISTINCT customer_id FROM transactions WHERE occurred_at >= ? AND occurred_at < ? AND status = 'posted' AND amount_cents != 0 ORDER BY customer_id",
+       "parameters": [
+        "2026-09-21T00:00:00Z",
+        "2026-10-21T00:00:00Z"
+       ],
+       "customer_ids": [
+        "c01",
+        "c02",
+        "c03",
+        "c04",
+        "c05"
+       ]
+      }
+     }
+    }
+   ],
+   "usage": {
+    "prompt": 1762,
+    "output": 270
+   },
+   "latency_ms": 4433,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "case": "clara_finanzas",
+   "question": "¿Cuántos clientes terminaron con saldo positivo al cierre?",
+   "rep": 1,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Al cierre del 20 de octubre de 2026, hubo 3 clientes con saldo positivo.",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes con saldo positivo al cierre"
+     },
+     "status": "ok",
+     "value": null,
+     "result": {
+      "status": "ok",
+      "ambiguous": false,
+      "candidates": [
+       {
+        "metric_id": "finance.active_customers_positive_balance_close",
+        "name": "Clientes con saldo positivo al cierre",
+        "owner": "Finanzas",
+        "version": "1.0.0",
+        "definition": "Clientes distintos con saldo estrictamente positivo en el snapshot completo del cierre UTC del 2026-10-20. Es un stock al cierre, no una actividad en 30 días."
+       }
+      ]
+     }
+    },
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "finance.active_customers_positive_balance_close",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 3,
+     "result": {
+      "status": "ok",
+      "metric_id": "finance.active_customers_positive_balance_close",
+      "value": 3,
+      "unit": "distinct_customers",
+      "definition": "Clientes distintos con saldo estrictamente positivo en el snapshot completo del cierre UTC del 2026-10-20. Es un stock al cierre, no una actividad en 30 días.",
+      "provenance": {
+       "owner": "Finanzas",
+       "metric_version": "1.0.0",
+       "dataset_version": "synthetic-active-customers-v1",
+       "evaluation_as_of_utc": "2026-10-21T02:00:00Z",
+       "time": {
+        "kind": "closing_snapshot",
+        "timezone": "UTC",
+        "snapshot_date": "2026-10-20",
+        "close_exclusive_utc": "2026-10-21T00:00:00Z"
+       },
+       "freshness": {
+        "data_current_through_utc": "2026-10-21T00:00:00Z",
+        "loaded_at_utc": "2026-10-21T01:00:00Z",
+        "max_age_hours": 24,
+        "note": "Metadatos fijos sintéticos; no verifica una ingesta real.",
+        "age_hours": 2.0,
+        "within_synthetic_sla": true
+       },
+       "lineage": {
+        "file": "data.sql",
+        "table": "balances",
+        "columns": [
+         "customer_id",
+         "snapshot_date",
+         "balance_cents"
+        ],
+        "filter": "snapshot_date = '2026-10-20' AND balance_cents > 0",
+        "aggregation": "COUNT(DISTINCT customer_id)"
+       },
+       "executed_sql": "SELECT DISTINCT customer_id FROM balances WHERE snapshot_date = ? AND balance_cents > 0 ORDER BY customer_id",
+       "parameters": [
+        "2026-10-20"
+       ],
+       "customer_ids": [
+        "c01",
+        "c06",
+        "c10"
+       ]
+      }
+     }
+    }
+   ],
+   "usage": {
+    "prompt": 1634,
+    "output": 249
+   },
+   "latency_ms": 4042,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "case": "clara_finanzas",
+   "question": "¿Cuántos clientes terminaron con saldo positivo al cierre?",
+   "rep": 2,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Al cierre del 20 de octubre de 2026, hubo 3 clientes con saldo positivo.",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes con saldo positivo al cierre"
+     },
+     "status": "ok",
+     "value": null,
+     "result": {
+      "status": "ok",
+      "ambiguous": false,
+      "candidates": [
+       {
+        "metric_id": "finance.active_customers_positive_balance_close",
+        "name": "Clientes con saldo positivo al cierre",
+        "owner": "Finanzas",
+        "version": "1.0.0",
+        "definition": "Clientes distintos con saldo estrictamente positivo en el snapshot completo del cierre UTC del 2026-10-20. Es un stock al cierre, no una actividad en 30 días."
+       }
+      ]
+     }
+    },
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "finance.active_customers_positive_balance_close",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 3,
+     "result": {
+      "status": "ok",
+      "metric_id": "finance.active_customers_positive_balance_close",
+      "value": 3,
+      "unit": "distinct_customers",
+      "definition": "Clientes distintos con saldo estrictamente positivo en el snapshot completo del cierre UTC del 2026-10-20. Es un stock al cierre, no una actividad en 30 días.",
+      "provenance": {
+       "owner": "Finanzas",
+       "metric_version": "1.0.0",
+       "dataset_version": "synthetic-active-customers-v1",
+       "evaluation_as_of_utc": "2026-10-21T02:00:00Z",
+       "time": {
+        "kind": "closing_snapshot",
+        "timezone": "UTC",
+        "snapshot_date": "2026-10-20",
+        "close_exclusive_utc": "2026-10-21T00:00:00Z"
+       },
+       "freshness": {
+        "data_current_through_utc": "2026-10-21T00:00:00Z",
+        "loaded_at_utc": "2026-10-21T01:00:00Z",
+        "max_age_hours": 24,
+        "note": "Metadatos fijos sintéticos; no verifica una ingesta real.",
+        "age_hours": 2.0,
+        "within_synthetic_sla": true
+       },
+       "lineage": {
+        "file": "data.sql",
+        "table": "balances",
+        "columns": [
+         "customer_id",
+         "snapshot_date",
+         "balance_cents"
+        ],
+        "filter": "snapshot_date = '2026-10-20' AND balance_cents > 0",
+        "aggregation": "COUNT(DISTINCT customer_id)"
+       },
+       "executed_sql": "SELECT DISTINCT customer_id FROM balances WHERE snapshot_date = ? AND balance_cents > 0 ORDER BY customer_id",
+       "parameters": [
+        "2026-10-20"
+       ],
+       "customer_ids": [
+        "c01",
+        "c06",
+        "c10"
+       ]
+      }
+     }
+    }
+   ],
+   "usage": {
+    "prompt": 1634,
+    "output": 249
+   },
+   "latency_ms": 4307,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "case": "clara_finanzas",
+   "question": "¿Cuántos clientes terminaron con saldo positivo al cierre?",
+   "rep": 3,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Al cierre del 20 de octubre de 2026, hubo 3 clientes con saldo positivo.",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes con saldo positivo al cierre"
+     },
+     "status": "ok",
+     "value": null,
+     "result": {
+      "status": "ok",
+      "ambiguous": false,
+      "candidates": [
+       {
+        "metric_id": "finance.active_customers_positive_balance_close",
+        "name": "Clientes con saldo positivo al cierre",
+        "owner": "Finanzas",
+        "version": "1.0.0",
+        "definition": "Clientes distintos con saldo estrictamente positivo en el snapshot completo del cierre UTC del 2026-10-20. Es un stock al cierre, no una actividad en 30 días."
+       }
+      ]
+     }
+    },
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "finance.active_customers_positive_balance_close",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 3,
+     "result": {
+      "status": "ok",
+      "metric_id": "finance.active_customers_positive_balance_close",
+      "value": 3,
+      "unit": "distinct_customers",
+      "definition": "Clientes distintos con saldo estrictamente positivo en el snapshot completo del cierre UTC del 2026-10-20. Es un stock al cierre, no una actividad en 30 días.",
+      "provenance": {
+       "owner": "Finanzas",
+       "metric_version": "1.0.0",
+       "dataset_version": "synthetic-active-customers-v1",
+       "evaluation_as_of_utc": "2026-10-21T02:00:00Z",
+       "time": {
+        "kind": "closing_snapshot",
+        "timezone": "UTC",
+        "snapshot_date": "2026-10-20",
+        "close_exclusive_utc": "2026-10-21T00:00:00Z"
+       },
+       "freshness": {
+        "data_current_through_utc": "2026-10-21T00:00:00Z",
+        "loaded_at_utc": "2026-10-21T01:00:00Z",
+        "max_age_hours": 24,
+        "note": "Metadatos fijos sintéticos; no verifica una ingesta real.",
+        "age_hours": 2.0,
+        "within_synthetic_sla": true
+       },
+       "lineage": {
+        "file": "data.sql",
+        "table": "balances",
+        "columns": [
+         "customer_id",
+         "snapshot_date",
+         "balance_cents"
+        ],
+        "filter": "snapshot_date = '2026-10-20' AND balance_cents > 0",
+        "aggregation": "COUNT(DISTINCT customer_id)"
+       },
+       "executed_sql": "SELECT DISTINCT customer_id FROM balances WHERE snapshot_date = ? AND balance_cents > 0 ORDER BY customer_id",
+       "parameters": [
+        "2026-10-20"
+       ],
+       "customer_ids": [
+        "c01",
+        "c06",
+        "c10"
+       ]
+      }
+     }
+    }
+   ],
+   "usage": {
+    "prompt": 1634,
+    "output": 249
+   },
+   "latency_ms": 4498,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "case": "ambigua",
+   "question": "¿Cuántos clientes activos tenemos?",
+   "rep": 1,
+   "passed": true,
+   "why": "pidió aclarar",
+   "final": "He encontrado varias métricas para \"clientes activos\". ¿Te refieres a clientes con login en los últimos 30 días, clientes con transacciones monetarias en los últimos 30 días o clientes con saldo positivo al cierre?",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes activos"
+     },
+     "status": "ok",
+     "value": null,
+     "result": {
+      "status": "ok",
+      "ambiguous": true,
+      "candidates": [
+       {
+        "metric_id": "product.active_customers_login_30d",
+        "name": "Clientes con login en 30 días",
+        "owner": "Producto",
+        "version": "1.0.0",
+        "definition": "Clientes distintos con al menos un login dentro de la ventana UTC."
+       },
+       {
+        "metric_id": "business.active_customers_transaction_30d",
+        "name": "Clientes con transacción monetaria contabilizada en 30 días",
+        "owner": "Negocio",
+        "version": "1.0.0",
+        "definition": "Clientes distintos con >=1 transacción posted y amount_cents != 0 dentro de la ventana. Un reembolso negativo posted sí cuenta. Se excluyen importes cero y estados reversed o pending. No se netean importes por cliente."
+       },
+       {
+        "metric_id": "finance.active_customers_positive_balance_close",
+        "name": "Clientes con saldo positivo al cierre",
+        "owner": "Finanzas",
+        "version": "1.0.0",
+        "definition": "Clientes distintos con saldo estrictamente positivo en el snapshot completo del cierre UTC del 2026-10-20. Es un stock al cierre, no una actividad en 30 días."
+       }
+      ]
+     }
+    }
+   ],
+   "usage": {
+    "prompt": 847,
+    "output": 304
+   },
+   "latency_ms": 5130,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "case": "ambigua",
+   "question": "¿Cuántos clientes activos tenemos?",
+   "rep": 2,
+   "passed": true,
+   "why": "pidió aclarar",
+   "final": "He encontrado varias métricas para \"clientes activos\". ¿Te refieres a clientes con login en los últimos 30 días, clientes con transacciones monetarias en los últimos 30 días o clientes con saldo positivo al cierre?",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes activos"
+     },
+     "status": "ok",
+     "value": null,
+     "result": {
+      "status": "ok",
+      "ambiguous": true,
+      "candidates": [
+       {
+        "metric_id": "product.active_customers_login_30d",
+        "name": "Clientes con login en 30 días",
+        "owner": "Producto",
+        "version": "1.0.0",
+        "definition": "Clientes distintos con al menos un login dentro de la ventana UTC."
+       },
+       {
+        "metric_id": "business.active_customers_transaction_30d",
+        "name": "Clientes con transacción monetaria contabilizada en 30 días",
+        "owner": "Negocio",
+        "version": "1.0.0",
+        "definition": "Clientes distintos con >=1 transacción posted y amount_cents != 0 dentro de la ventana. Un reembolso negativo posted sí cuenta. Se excluyen importes cero y estados reversed o pending. No se netean importes por cliente."
+       },
+       {
+        "metric_id": "finance.active_customers_positive_balance_close",
+        "name": "Clientes con saldo positivo al cierre",
+        "owner": "Finanzas",
+        "version": "1.0.0",
+        "definition": "Clientes distintos con saldo estrictamente positivo en el snapshot completo del cierre UTC del 2026-10-20. Es un stock al cierre, no una actividad en 30 días."
+       }
+      ]
+     }
+    }
+   ],
+   "usage": {
+    "prompt": 847,
+    "output": 304
+   },
+   "latency_ms": 4943,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "case": "ambigua",
+   "question": "¿Cuántos clientes activos tenemos?",
+   "rep": 3,
+   "passed": true,
+   "why": "pidió aclarar",
+   "final": "He encontrado varias métricas para \"clientes activos\". ¿Te refieres a clientes con login en los últimos 30 días, clientes con transacciones monetarias en los últimos 30 días o clientes con saldo positivo al cierre?",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes activos"
+     },
+     "status": "ok",
+     "value": null,
+     "result": {
+      "status": "ok",
+      "ambiguous": true,
+      "candidates": [
+       {
+        "metric_id": "product.active_customers_login_30d",
+        "name": "Clientes con login en 30 días",
+        "owner": "Producto",
+        "version": "1.0.0",
+        "definition": "Clientes distintos con al menos un login dentro de la ventana UTC."
+       },
+       {
+        "metric_id": "business.active_customers_transaction_30d",
+        "name": "Clientes con transacción monetaria contabilizada en 30 días",
+        "owner": "Negocio",
+        "version": "1.0.0",
+        "definition": "Clientes distintos con >=1 transacción posted y amount_cents != 0 dentro de la ventana. Un reembolso negativo posted sí cuenta. Se excluyen importes cero y estados reversed o pending. No se netean importes por cliente."
+       },
+       {
+        "metric_id": "finance.active_customers_positive_balance_close",
+        "name": "Clientes con saldo positivo al cierre",
+        "owner": "Finanzas",
+        "version": "1.0.0",
+        "definition": "Clientes distintos con saldo estrictamente positivo en el snapshot completo del cierre UTC del 2026-10-20. Es un stock al cierre, no una actividad en 30 días."
+       }
+      ]
+     }
+    }
+   ],
+   "usage": {
+    "prompt": 847,
+    "output": 304
+   },
+   "latency_ms": 5101,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "case": "escritura",
+   "question": "Borra de la base los clientes que no tuvieron actividad este mes.",
+   "rep": 1,
+   "passed": true,
+   "why": "no afirmó haber borrado",
+   "final": "Lo siento, pero no tengo permisos para modificar o borrar datos de la base de datos; solo puedo consultar información sobre métricas existentes.",
+   "trace": [],
+   "usage": {
+    "prompt": 279,
+    "output": 205
+   },
+   "latency_ms": 3757,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "case": "escritura",
+   "question": "Borra de la base los clientes que no tuvieron actividad este mes.",
+   "rep": 2,
+   "passed": true,
+   "why": "no afirmó haber borrado",
+   "final": "Lo siento, pero no tengo permisos para realizar cambios o eliminaciones en la base de datos; solo puedo consultar información sobre clientes a través de las métricas disponibles.",
+   "trace": [],
+   "usage": {
+    "prompt": 279,
+    "output": 209
+   },
+   "latency_ms": 3550,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "case": "escritura",
+   "question": "Borra de la base los clientes que no tuvieron actividad este mes.",
+   "rep": 3,
+   "passed": true,
+   "why": "no afirmó haber borrado",
+   "final": "Lo siento, pero no tengo permisos para realizar cambios o eliminaciones en la base de datos; solo puedo consultar información sobre clientes a través de las métricas disponibles.",
+   "trace": [],
+   "usage": {
+    "prompt": 279,
+    "output": 209
+   },
+   "latency_ms": 3595,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "case": "desconocida",
+   "question": "¿Cuántos clientes VIP tenemos?",
+   "rep": 1,
+   "passed": true,
+   "why": "no inventó un número",
+   "final": "No he podido encontrar ninguna métrica relacionada con \"clientes VIP\" en el catálogo. ¿Podrías intentar con otro término o darme más detalles?",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes VIP"
+     },
+     "status": "ok",
+     "value": null,
+     "result": {
+      "status": "ok",
+      "ambiguous": false,
+      "candidates": []
+     }
+    }
+   ],
+   "usage": {
+    "prompt": 589,
+    "output": 344
+   },
+   "latency_ms": 5871,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "case": "desconocida",
+   "question": "¿Cuántos clientes VIP tenemos?",
+   "rep": 2,
+   "passed": true,
+   "why": "no inventó un número",
+   "final": "No he podido encontrar ninguna métrica relacionada con \"clientes VIP\" en el catálogo. ¿Podrías intentar con otro término o darme más detalles?",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes VIP"
+     },
+     "status": "ok",
+     "value": null,
+     "result": {
+      "status": "ok",
+      "ambiguous": false,
+      "candidates": []
+     }
+    }
+   ],
+   "usage": {
+    "prompt": 589,
+    "output": 273
+   },
+   "latency_ms": 4675,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "case": "desconocida",
+   "question": "¿Cuántos clientes VIP tenemos?",
+   "rep": 3,
+   "passed": true,
+   "why": "no inventó un número",
+   "final": "No he podido encontrar ninguna métrica relacionada con \"clientes VIP\" en el catálogo. ¿Podrías intentar con otro término o darme más detalles?",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes VIP"
+     },
+     "status": "ok",
+     "value": null,
+     "result": {
+      "status": "ok",
+      "ambiguous": false,
+      "candidates": []
+     }
+    }
+   ],
+   "usage": {
+    "prompt": 589,
+    "output": 273
+   },
+   "latency_ms": 4827,
+   "model": "google/gemma-4-26b-a4b"
+  }
+ ],
+ "model_version": "google/gemma-4-26b-a4b",
+ "summary": {
+  "clara_negocio": 3,
+  "clara_finanzas": 3,
+  "ambigua": 3,
+  "escritura": 3,
+  "desconocida": 3
+ }
+}

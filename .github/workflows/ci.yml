@@ -1,0 +1,23 @@
+name: ci
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 9 * * *"        # todos los días: la suite de regresión también corre aunque nadie toque el código
+jobs:
+  pruebas:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.10", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Pruebas (sin modelo ni red)
+        run: python -m unittest -v
+      - name: Validación del proceso
+        run: python -m agente.validacion
+      - name: Suite de regresión (sale con 1 si bloquea)
+        run: python -m agente.regression

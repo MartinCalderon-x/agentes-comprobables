@@ -1,0 +1,1376 @@
+{
+ "model": "google/gemma-4-26b-a4b",
+ "temperature": 0.0,
+ "repeats": 3,
+ "cases": [
+  {
+   "id": "login",
+   "q": "¿Cuántos clientes iniciaron sesión en los últimos 30 días?",
+   "metric": "product.active_customers_login_30d",
+   "value": 8
+  },
+  {
+   "id": "entraron",
+   "q": "¿Cuántos usuarios entraron a la app en los últimos 30 días?",
+   "metric": "product.active_customers_login_30d",
+   "value": 8
+  },
+  {
+   "id": "transaccion",
+   "q": "¿Cuántos clientes hicieron al menos una transacción en los últimos 30 días?",
+   "metric": "business.active_customers_transaction_30d",
+   "value": 5
+  },
+  {
+   "id": "compraron",
+   "q": "¿Cuántos clientes compraron algo en los últimos 30 días?",
+   "metric": "business.active_customers_transaction_30d",
+   "value": 5
+  },
+  {
+   "id": "saldo",
+   "q": "¿Cuántos clientes terminaron con saldo positivo al cierre?",
+   "metric": "finance.active_customers_positive_balance_close",
+   "value": 3
+  },
+  {
+   "id": "saldo_corto",
+   "q": "¿Cuántos clientes tienen saldo?",
+   "metric": "finance.active_customers_positive_balance_close",
+   "value": 3
+  },
+  {
+   "id": "ambigua",
+   "q": "¿Cuántos clientes activos tenemos?"
+  },
+  {
+   "id": "vip",
+   "q": "¿Cuántos clientes VIP tenemos?"
+  }
+ ],
+ "context_A_chars": 13413,
+ "runs": [
+  {
+   "mode": "A",
+   "case": "login",
+   "rep": 1,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Hay 8 clientes distintos que iniciaron sesión en la ventana de los últimos 30 días. Esta métrica pertenece al área de Producto (versión 1.0.0).",
+   "trace": [
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "product.active_customers_login_30d",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 8
+    }
+   ],
+   "usage": {
+    "prompt": 10001,
+    "output": 442
+   },
+   "latency_ms": 13005,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "A",
+   "case": "login",
+   "rep": 2,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Hay 8 clientes distintos que iniciaron sesión en la ventana de los últimos 30 días. Esta métrica pertenece al área de Producto (versión 1.0.0).",
+   "trace": [
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "product.active_customers_login_30d",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 8
+    }
+   ],
+   "usage": {
+    "prompt": 10001,
+    "output": 442
+   },
+   "latency_ms": 8496,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "A",
+   "case": "login",
+   "rep": 3,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Hay 8 clientes distintos que iniciaron sesión en la ventana de los últimos 30 días. Esta métrica pertenece al área de Producto (versión 1.0.0).",
+   "trace": [
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "product.active_customers_login_30d",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 8
+    }
+   ],
+   "usage": {
+    "prompt": 10001,
+    "output": 442
+   },
+   "latency_ms": 8533,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "A",
+   "case": "entraron",
+   "rep": 1,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Hay 8 clientes distintos con al menos un login dentro de la ventana UTC definida.",
+   "trace": [
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "product.active_customers_login_30d",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 8
+    }
+   ],
+   "usage": {
+    "prompt": 10005,
+    "output": 959
+   },
+   "latency_ms": 20086,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "A",
+   "case": "entraron",
+   "rep": 2,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Hay 8 clientes distintos con al menos un login dentro de la ventana UTC definida.",
+   "trace": [
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "product.active_customers_login_30d",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 8
+    }
+   ],
+   "usage": {
+    "prompt": 10005,
+    "output": 1243
+   },
+   "latency_ms": 27589,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "A",
+   "case": "entraron",
+   "rep": 3,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Hay 8 clientes distintos con al menos un login dentro de la ventana UTC definida.",
+   "trace": [
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "product.active_customers_login_30d",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 8
+    }
+   ],
+   "usage": {
+    "prompt": 10005,
+    "output": 1243
+   },
+   "latency_ms": 28505,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "A",
+   "case": "transaccion",
+   "rep": 1,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Hay 5 clientes distintos con al menos una transacción contabilizada en los últimos 30 días. Esta métrica pertenece al área de Negocio (versión 1.0.0).",
+   "trace": [
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "business.active_customers_transaction_30d",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 5
+    }
+   ],
+   "usage": {
+    "prompt": 10058,
+    "output": 410
+   },
+   "latency_ms": 8156,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "A",
+   "case": "transaccion",
+   "rep": 2,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Hay 5 clientes distintos con al menos una transacción contabilizada en los últimos 30 días. Esta métrica pertenece al área de Negocio (versión 1.0.0).",
+   "trace": [
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "business.active_customers_transaction_30d",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 5
+    }
+   ],
+   "usage": {
+    "prompt": 10058,
+    "output": 749
+   },
+   "latency_ms": 18251,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "A",
+   "case": "transaccion",
+   "rep": 3,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Hay 5 clientes distintos con al menos una transacción contabilizada en los últimos 30 días. Esta métrica pertenece al área de Negocio (versión 1.0.0).",
+   "trace": [
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "business.active_customers_transaction_30d",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 5
+    }
+   ],
+   "usage": {
+    "prompt": 10058,
+    "output": 749
+   },
+   "latency_ms": 18076,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "A",
+   "case": "compraron",
+   "rep": 1,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Hay 5 clientes distintos con transacciones contabilizadas en los últimos 30 días. Esta métrica pertenece al área de Negocio (versión 1.0.0).",
+   "trace": [
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "business.active_customers_transaction_30d",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 5
+    }
+   ],
+   "usage": {
+    "prompt": 10054,
+    "output": 1165
+   },
+   "latency_ms": 30929,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "A",
+   "case": "compraron",
+   "rep": 2,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Hay 5 clientes distintos con transacciones contabilizadas en los últimos 30 días. Esta métrica pertenece al área de Negocio (versión 1.0.0).",
+   "trace": [
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "business.active_customers_transaction_30d",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 5
+    }
+   ],
+   "usage": {
+    "prompt": 10054,
+    "output": 1165
+   },
+   "latency_ms": 38334,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "A",
+   "case": "compraron",
+   "rep": 3,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Hay 5 clientes distintos con transacciones contabilizadas en los últimos 30 días. Esta métrica pertenece al área de Negocio (versión 1.0.0).",
+   "trace": [
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "business.active_customers_transaction_30d",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 5
+    }
+   ],
+   "usage": {
+    "prompt": 10054,
+    "output": 1165
+   },
+   "latency_ms": 52523,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "A",
+   "case": "saldo",
+   "rep": 1,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Hay 3 clientes distintos con saldo positivo al cierre del 2026-10-20.",
+   "trace": [
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "finance.active_customers_positive_balance_close",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 3
+    }
+   ],
+   "usage": {
+    "prompt": 9971,
+    "output": 346
+   },
+   "latency_ms": 18021,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "A",
+   "case": "saldo",
+   "rep": 2,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Hay 3 clientes distintos con saldo positivo al cierre del 2026-10-20.",
+   "trace": [
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "finance.active_customers_positive_balance_close",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 3
+    }
+   ],
+   "usage": {
+    "prompt": 9971,
+    "output": 487
+   },
+   "latency_ms": 27624,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "A",
+   "case": "saldo",
+   "rep": 3,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Hay 3 clientes distintos con saldo positivo al cierre del 2026-10-20.",
+   "trace": [
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "finance.active_customers_positive_balance_close",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 3
+    }
+   ],
+   "usage": {
+    "prompt": 9971,
+    "output": 487
+   },
+   "latency_ms": 25782,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "A",
+   "case": "saldo_corto",
+   "rep": 1,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Hay 3 clientes con saldo positivo al cierre del 2026-10-20. Esta métrica pertenece al área de Finanzas (versión 1.0.0).",
+   "trace": [
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "finance.active_customers_positive_balance_close",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 3
+    }
+   ],
+   "usage": {
+    "prompt": 9961,
+    "output": 1650
+   },
+   "latency_ms": 70151,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "A",
+   "case": "saldo_corto",
+   "rep": 2,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Hay 3 clientes con saldo positivo al cierre del 2026-10-20, según la métrica de Finanzas.",
+   "trace": [
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "finance.active_customers_positive_balance_close",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 3
+    }
+   ],
+   "usage": {
+    "prompt": 9961,
+    "output": 2696
+   },
+   "latency_ms": 88830,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "A",
+   "case": "saldo_corto",
+   "rep": 3,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Hay 3 clientes con saldo positivo al cierre del 2026-10-20, según la métrica de Finanzas.",
+   "trace": [
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "finance.active_customers_positive_balance_close",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 3
+    }
+   ],
+   "usage": {
+    "prompt": 9961,
+    "output": 2696
+   },
+   "latency_ms": 74191,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "A",
+   "case": "ambigua",
+   "rep": 1,
+   "passed": true,
+   "why": "pidió aclarar",
+   "final": "Existen tres definiciones diferentes para \"clientes activos\" (Producto, Negocio o Finanzas). ¿Cuál de estas métricas necesitas consultar?",
+   "trace": [],
+   "usage": {
+    "prompt": 4719,
+    "output": 298
+   },
+   "latency_ms": 7266,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "A",
+   "case": "ambigua",
+   "rep": 2,
+   "passed": true,
+   "why": "pidió aclarar",
+   "final": "Existen tres definiciones diferentes para \"clientes activos\" (Producto, Negocio o Finanzas). ¿Cuál de estas métricas necesitas consultar?",
+   "trace": [],
+   "usage": {
+    "prompt": 4719,
+    "output": 298
+   },
+   "latency_ms": 7635,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "A",
+   "case": "ambigua",
+   "rep": 3,
+   "passed": true,
+   "why": "pidió aclarar",
+   "final": "Existen tres definiciones diferentes para \"clientes activos\" (Producto, Negocio o Finanzas). ¿Cuál de estas métricas necesitas consultar?",
+   "trace": [],
+   "usage": {
+    "prompt": 4719,
+    "output": 298
+   },
+   "latency_ms": 7747,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "A",
+   "case": "vip",
+   "rep": 1,
+   "passed": true,
+   "why": "no inventó",
+   "final": "No tengo una métrica definida para \"clientes VIP\" en el catálogo. ¿Te refieres a alguna de las métricas de clientes activos (Producto, Negocio o Finanzas)?",
+   "trace": [],
+   "usage": {
+    "prompt": 4719,
+    "output": 684
+   },
+   "latency_ms": 18613,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "A",
+   "case": "vip",
+   "rep": 2,
+   "passed": true,
+   "why": "no inventó",
+   "final": "No tengo una métrica definida para \"clientes VIP\" en el catálogo. ¿Te refieres a alguna de las métricas de clientes activos (Producto, Negocio o Finanzas)?",
+   "trace": [],
+   "usage": {
+    "prompt": 4719,
+    "output": 684
+   },
+   "latency_ms": 16251,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "A",
+   "case": "vip",
+   "rep": 3,
+   "passed": true,
+   "why": "no inventó",
+   "final": "No tengo una métrica definida para \"clientes VIP\" en el catálogo. ¿Te refieres a alguna de las métricas de clientes activos (Producto, Negocio o Finanzas)?",
+   "trace": [],
+   "usage": {
+    "prompt": 4719,
+    "output": 684
+   },
+   "latency_ms": 17952,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "B",
+   "case": "login",
+   "rep": 1,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Un total de 8 clientes distintos iniciaron sesión en los últimos 30 días.",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes que iniciaron sesión en los últimos 30 días"
+     },
+     "status": "ok",
+     "value": null
+    },
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "product.active_customers_login_30d",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 8
+    }
+   ],
+   "usage": {
+    "prompt": 1608,
+    "output": 292
+   },
+   "latency_ms": 7754,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "B",
+   "case": "login",
+   "rep": 2,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Un total de 8 clientes distintos iniciaron sesión en los últimos 30 días.",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes que iniciaron sesión en los últimos 30 días"
+     },
+     "status": "ok",
+     "value": null
+    },
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "product.active_customers_login_30d",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 8
+    }
+   ],
+   "usage": {
+    "prompt": 1608,
+    "output": 292
+   },
+   "latency_ms": 7838,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "B",
+   "case": "login",
+   "rep": 3,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Un total de 8 clientes distintos iniciaron sesión en los últimos 30 días.",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes que iniciaron sesión en los últimos 30 días"
+     },
+     "status": "ok",
+     "value": null
+    },
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "product.active_customers_login_30d",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 8
+    }
+   ],
+   "usage": {
+    "prompt": 1608,
+    "output": 292
+   },
+   "latency_ms": 7338,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "B",
+   "case": "entraron",
+   "rep": 1,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "En los últimos 30 días, hubo un total de 8 clientes distintos que iniciaron sesión en la aplicación.",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "usuarios que entraron a la app"
+     },
+     "status": "ok",
+     "value": null
+    },
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "product.active_customers_login_30d",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 8
+    }
+   ],
+   "usage": {
+    "prompt": 1604,
+    "output": 311
+   },
+   "latency_ms": 8011,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "B",
+   "case": "entraron",
+   "rep": 2,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "En los últimos 30 días, hubo un total de 8 clientes distintos que iniciaron sesión en la aplicación.",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "usuarios que entraron a la app"
+     },
+     "status": "ok",
+     "value": null
+    },
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "product.active_customers_login_30d",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 8
+    }
+   ],
+   "usage": {
+    "prompt": 1604,
+    "output": 311
+   },
+   "latency_ms": 7999,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "B",
+   "case": "entraron",
+   "rep": 3,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "En los últimos 30 días, hubo un total de 8 clientes distintos que iniciaron sesión en la aplicación.",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "usuarios que entraron a la app"
+     },
+     "status": "ok",
+     "value": null
+    },
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "product.active_customers_login_30d",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 8
+    }
+   ],
+   "usage": {
+    "prompt": 1604,
+    "output": 311
+   },
+   "latency_ms": 7849,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "B",
+   "case": "transaccion",
+   "rep": 1,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Hay 5 clientes que realizaron al menos una transacción en los últimos 30 días.",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes con al menos una transacción en los últimos 30 días"
+     },
+     "status": "ok",
+     "value": null
+    },
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "business.active_customers_transaction_30d",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 5
+    }
+   ],
+   "usage": {
+    "prompt": 1747,
+    "output": 267
+   },
+   "latency_ms": 6795,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "B",
+   "case": "transaccion",
+   "rep": 2,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Hay 5 clientes que realizaron al menos una transacción en los últimos 30 días.",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes con al menos una transacción en los últimos 30 días"
+     },
+     "status": "ok",
+     "value": null
+    },
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "business.active_customers_transaction_30d",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 5
+    }
+   ],
+   "usage": {
+    "prompt": 1747,
+    "output": 267
+   },
+   "latency_ms": 6936,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "B",
+   "case": "transaccion",
+   "rep": 3,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Hay 5 clientes que realizaron al menos una transacción en los últimos 30 días.",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes con al menos una transacción en los últimos 30 días"
+     },
+     "status": "ok",
+     "value": null
+    },
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "business.active_customers_transaction_30d",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 5
+    }
+   ],
+   "usage": {
+    "prompt": 1747,
+    "output": 267
+   },
+   "latency_ms": 6765,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "B",
+   "case": "compraron",
+   "rep": 1,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "En los últimos 30 días, hubo un total de 5 clientes que realizaron compras.",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes que compraron en los últimos 30 días"
+     },
+     "status": "ok",
+     "value": null
+    },
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "business.active_customers_transaction_30d",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 5
+    }
+   ],
+   "usage": {
+    "prompt": 1737,
+    "output": 246
+   },
+   "latency_ms": 6939,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "B",
+   "case": "compraron",
+   "rep": 2,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "En los últimos 30 días, hubo un total de 5 clientes que realizaron compras.",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes que compraron en los últimos 30 días"
+     },
+     "status": "ok",
+     "value": null
+    },
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "business.active_customers_transaction_30d",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 5
+    }
+   ],
+   "usage": {
+    "prompt": 1737,
+    "output": 241
+   },
+   "latency_ms": 6560,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "B",
+   "case": "compraron",
+   "rep": 3,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "En los últimos 30 días, hubo un total de 5 clientes que realizaron compras.",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes que compraron en los últimos 30 días"
+     },
+     "status": "ok",
+     "value": null
+    },
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "business.active_customers_transaction_30d",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 5
+    }
+   ],
+   "usage": {
+    "prompt": 1737,
+    "output": 241
+   },
+   "latency_ms": 6342,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "B",
+   "case": "saldo",
+   "rep": 1,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Al cierre del 20 de octubre de 2026, hubo 3 clientes con saldo positivo.",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes con saldo positivo al cierre"
+     },
+     "status": "ok",
+     "value": null
+    },
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "finance.active_customers_positive_balance_close",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 3
+    }
+   ],
+   "usage": {
+    "prompt": 1619,
+    "output": 261
+   },
+   "latency_ms": 6908,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "B",
+   "case": "saldo",
+   "rep": 2,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Al cierre del 20 de octubre de 2026, hubo 3 clientes con saldo positivo.",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes con saldo positivo al cierre"
+     },
+     "status": "ok",
+     "value": null
+    },
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "finance.active_customers_positive_balance_close",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 3
+    }
+   ],
+   "usage": {
+    "prompt": 1619,
+    "output": 395
+   },
+   "latency_ms": 9761,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "B",
+   "case": "saldo",
+   "rep": 3,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Al cierre del 20 de octubre de 2026, hubo 3 clientes con saldo positivo.",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes con saldo positivo al cierre"
+     },
+     "status": "ok",
+     "value": null
+    },
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "finance.active_customers_positive_balance_close",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 3
+    }
+   ],
+   "usage": {
+    "prompt": 1619,
+    "output": 395
+   },
+   "latency_ms": 9968,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "B",
+   "case": "saldo_corto",
+   "rep": 1,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Hay 3 clientes con saldo positivo al cierre del 20 de octubre de 2026.",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes con saldo"
+     },
+     "status": "ok",
+     "value": null
+    },
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "finance.active_customers_positive_balance_close",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 3
+    }
+   ],
+   "usage": {
+    "prompt": 1598,
+    "output": 432
+   },
+   "latency_ms": 10950,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "B",
+   "case": "saldo_corto",
+   "rep": 2,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Hay 3 clientes con saldo positivo al cierre del 20 de octubre de 2026.",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes con saldo"
+     },
+     "status": "ok",
+     "value": null
+    },
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "finance.active_customers_positive_balance_close",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 3
+    }
+   ],
+   "usage": {
+    "prompt": 1598,
+    "output": 432
+   },
+   "latency_ms": 11711,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "B",
+   "case": "saldo_corto",
+   "rep": 3,
+   "passed": true,
+   "why": "métrica y número correctos",
+   "final": "Hay 3 clientes con saldo positivo al cierre del 20 de octubre de 2026.",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes con saldo"
+     },
+     "status": "ok",
+     "value": null
+    },
+    {
+     "tool": "query_metric",
+     "args": {
+      "metric_id": "finance.active_customers_positive_balance_close",
+      "version": "1.0.0"
+     },
+     "status": "ok",
+     "value": 3
+    }
+   ],
+   "usage": {
+    "prompt": 1598,
+    "output": 432
+   },
+   "latency_ms": 11455,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "B",
+   "case": "ambigua",
+   "rep": 1,
+   "passed": true,
+   "why": "pidió aclarar",
+   "final": "Existen varias métricas para definir clientes activos. ¿Te refieres a clientes con login en los últimos 30 días, con transacciones monetarias en los últimos 30 días o con saldo positivo al cierre?",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes activos"
+     },
+     "status": "ok",
+     "value": null
+    }
+   ],
+   "usage": {
+    "prompt": 837,
+    "output": 294
+   },
+   "latency_ms": 7490,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "B",
+   "case": "ambigua",
+   "rep": 2,
+   "passed": true,
+   "why": "pidió aclarar",
+   "final": "Existen varias métricas para definir clientes activos. ¿Te refieres a clientes con login en los últimos 30 días, con transacciones monetarias en los últimos 30 días o con saldo positivo al cierre?",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes activos"
+     },
+     "status": "ok",
+     "value": null
+    }
+   ],
+   "usage": {
+    "prompt": 837,
+    "output": 299
+   },
+   "latency_ms": 7848,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "B",
+   "case": "ambigua",
+   "rep": 3,
+   "passed": true,
+   "why": "pidió aclarar",
+   "final": "Existen varias métricas para definir clientes activos. ¿Te refieres a clientes con login en los últimos 30 días, con transacciones monetarias en los últimos 30 días o con saldo positivo al cierre?",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes activos"
+     },
+     "status": "ok",
+     "value": null
+    }
+   ],
+   "usage": {
+    "prompt": 837,
+    "output": 299
+   },
+   "latency_ms": 8004,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "B",
+   "case": "vip",
+   "rep": 1,
+   "passed": true,
+   "why": "no inventó",
+   "final": "No he podido encontrar una métrica específica para \"clientes VIP\" en el catálogo. ¿Podrías indicarme qué otro tipo de información sobre clientes necesitas?",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes VIP"
+     },
+     "status": "ok",
+     "value": null
+    }
+   ],
+   "usage": {
+    "prompt": 579,
+    "output": 408
+   },
+   "latency_ms": 10875,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "B",
+   "case": "vip",
+   "rep": 2,
+   "passed": true,
+   "why": "no inventó",
+   "final": "No he podido encontrar ninguna métrica relacionada con \"clientes VIP\" en el catálogo disponible.",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes VIP"
+     },
+     "status": "ok",
+     "value": null
+    },
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes"
+     },
+     "status": "ok",
+     "value": null
+    }
+   ],
+   "usage": {
+    "prompt": 935,
+    "output": 826
+   },
+   "latency_ms": 22663,
+   "model": "google/gemma-4-26b-a4b"
+  },
+  {
+   "mode": "B",
+   "case": "vip",
+   "rep": 3,
+   "passed": true,
+   "why": "no inventó",
+   "final": "No he podido encontrar ninguna métrica relacionada con \"clientes VIP\" en el catálogo disponible.",
+   "trace": [
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes VIP"
+     },
+     "status": "ok",
+     "value": null
+    },
+    {
+     "tool": "discover_metrics",
+     "args": {
+      "text": "clientes"
+     },
+     "status": "ok",
+     "value": null
+    }
+   ],
+   "usage": {
+    "prompt": 935,
+    "output": 826
+   },
+   "latency_ms": 22244,
+   "model": "google/gemma-4-26b-a4b"
+  }
+ ],
+ "model_reported": "google/gemma-4-26b-a4b",
+ "summary": {
+  "A": {
+   "runs": 24,
+   "errors": 0,
+   "passed": 24,
+   "prompt_tokens_median": 9986,
+   "output_tokens_median": 684,
+   "prompt_tokens_total": 208464,
+   "latency_ms_median": 18432,
+   "tool_calls_median": 1,
+   "failed_cases": [],
+   "invented_numbers": 0
+  },
+  "B": {
+   "runs": 24,
+   "errors": 0,
+   "passed": 24,
+   "prompt_tokens_median": 1606,
+   "output_tokens_median": 299,
+   "prompt_tokens_total": 34699,
+   "latency_ms_median": 7848,
+   "tool_calls_median": 2,
+   "failed_cases": [],
+   "invented_numbers": 0
+  }
+ },
+ "grader": "v2"
+}

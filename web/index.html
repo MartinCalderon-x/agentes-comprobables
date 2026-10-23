@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agentes comprobables</title>
+<style>
+  :root {
+    --bg: #f7f6f2; --panel: #ffffff; --ink: #141918; --body: #46504c; --muted: #6b7772; --line: #e4e2dc;
+    --accent: #087d69; --mint: #3ddbb9; --mint-soft: #dcefe9; --bad: #141918; --bad-fg: #ffffff;
+    --warn: #ffc862; --code: #141918; --code-fg: #e2ece8; --shadow: 0 6px 24px rgba(20, 25, 24, .07);
+  }
+  :root[data-theme="dark"] {
+      --bg: #0b100f; --panel: #161f1d; --ink: #f2f5f4; --body: #c3ccc8; --muted: #8e9a95; --line: #26302d;
+      --accent: #3ddbb9; --mint-soft: #1d2d29; --bad: #f2f5f4; --bad-fg: #141918; --code: #050807; --shadow: none;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0b100f; --panel: #161f1d; --ink: #f2f5f4; --body: #c3ccc8; --muted: #8e9a95; --line: #26302d;
+      --accent: #3ddbb9; --mint-soft: #1d2d29; --bad: #f2f5f4; --bad-fg: #141918; --code: #050807; --shadow: none;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Inter, sans-serif; }
+  header { padding: 22px 24px 8px; display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: end; justify-content: space-between; max-width: 1320px; margin: 0 auto; }
+  h1 { margin: 0; font-size: 26px; letter-spacing: -.02em; }
+  h1 span { color: var(--accent); }
+  .sub { color: var(--body); margin-top: 4px; }
+  .badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: var(--panel); border: 1px solid var(--line); font-size: 13px; color: var(--body); }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--warn); }
+  .dot.on { background: var(--mint); }
+  main { max-width: 1320px; margin: 0 auto; padding: 12px 24px 40px; display: grid; gap: 20px; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); }
+  @media (max-width: 980px) { main { grid-template-columns: 1fr; padding: 12px 16px 32px; } header { padding: 18px 16px 4px; } }
+  section.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 20px; box-shadow: var(--shadow); min-width: 0; }
+  h2 { margin: 0 0 4px; font-size: 18px; }
+  .hint { color: var(--muted); font-size: 13px; margin: 0 0 14px; }
+  .label { font: 600 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+  .cards { display: grid; gap: 12px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  @media (max-width: 640px) { .cards { grid-template-columns: 1fr; } }
+  .card { border: 1px solid var(--line); border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  .card .num { font-size: 46px; font-weight: 650; letter-spacing: -.03em; line-height: 1; }
+  .card .name { font-weight: 600; }
+  .card .def { color: var(--body); font-size: 13px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+  .chip { font-size: 12px; padding: 3px 8px; border-radius: 999px; background: var(--mint-soft); color: var(--ink); }
+  details { margin-top: 4px; }
+  summary { cursor: pointer; color: var(--accent); font-size: 13px; font-weight: 600; }
+  pre { background: var(--code); color: var(--code-fg); border-radius: 10px; padding: 10px 12px; overflow-x: auto; font-size: 12px; white-space: pre-wrap; word-break: break-word; margin: 8px 0 0; }
+  .parity { margin-top: 14px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font-size: 14px; color: var(--body); }
+  .ok { display: inline-block; padding: 3px 10px; border-radius: 999px; background: var(--mint); color: #141918; font-weight: 600; font-size: 12px; }
+  .no { display: inline-block; padding: 3px 10px; border-radius: 999px; background: var(--bad); color: var(--bad-fg); font-weight: 600; font-size: 12px; }
+  .wa { display: inline-block; padding: 3px 10px; border-radius: 999px; background: var(--warn); color: #141918; font-weight: 600; font-size: 12px; }
+  /* chat */
+  .chat { display: flex; flex-direction: column; height: 100%; min-height: 560px; }
+  .log { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding: 4px 2px 12px; max-height: 62vh; }
+  .msg { max-width: 92%; padding: 10px 14px; border-radius: 14px; }
+  .msg.user { align-self: flex-end; background: var(--mint-soft); border-bottom-right-radius: 4px; }
+  .msg.bot { align-self: flex-start; background: var(--bg); border: 1px solid var(--line); border-bottom-left-radius: 4px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 8px; font-size: 12px; color: var(--muted); }
+  .opts { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  button { font: inherit; cursor: pointer; }
+  .opt, .sugg button { border: 1px solid var(--accent); color: var(--accent); background: transparent; padding: 6px 10px; border-radius: 10px; font-size: 13px; text-align: left; }
+  .opt:hover, .sugg button:hover { background: var(--mint-soft); }
+  .sugg { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 10px; }
+  .ev { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 13px; }
+  .ev td { padding: 4px 6px; border-top: 1px solid var(--line); vertical-align: top; }
+  .ev td:first-child { color: var(--muted); white-space: nowrap; width: 1%; }
+  .trace { list-style: none; padding: 0; margin: 8px 0 0; font: 12px/1.5 ui-monospace, Menlo, monospace; }
+  .trace li { padding: 4px 0; border-top: 1px solid var(--line); word-break: break-word; }
+  form { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+  input[type=text] { flex: 1 1 220px; min-width: 0; padding: 11px 13px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); font: inherit; }
+  select { padding: 10px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); font: inherit; }
+  .primary { background: var(--accent); color: #fff; border: 0; padding: 11px 16px; border-radius: 12px; font-weight: 600; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .primary { color: #141918; } }
+  /* validación */
+  .full { grid-column: 1 / -1; }
+  .steps { display: grid; gap: 14px; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 12px; }
+  @media (max-width: 980px) { .steps { grid-template-columns: 1fr; } }
+  .step h3 { margin: 0 0 8px; font-size: 15px; display: flex; gap: 8px; align-items: center; }
+  .check { border-top: 1px solid var(--line); padding: 8px 0; font-size: 13px; }
+  .check b { display: block; font-weight: 600; }
+  .check code { color: var(--muted); font-size: 11.5px; }
+  .evals { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
+  .evals th, .evals td { text-align: left; padding: 6px 8px; border-top: 1px solid var(--line); vertical-align: top; }
+  .evals th { font-weight: 600; color: var(--muted); }
+  .summary { font-weight: 600; margin-left: 8px; }
+  .err { color: #c0392b; }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Agentes <span>comprobables</span></h1>
+    <div class="sub">Un agente de datos que responde con evidencia: qué definición usó, de qué período y de dónde sale cada número.</div>
+  </div>
+  <div class="badge" id="modelBadge"><span class="dot" id="modelDot"></span><span id="modelText">Revisando el modelo…</span></div>
+</header>
+
+<main>
+  <section class="panel">
+    <div class="label">Tablero</div>
+    <h2>Clientes activos, tres definiciones</h2>
+    <p class="hint" id="dsHint">La misma base, tres áreas, tres números correctos. Cada uno con su contrato.</p>
+    <div class="cards" id="cards"></div>
+    <div class="parity" id="parity"></div>
+  </section>
+
+  <section class="panel chat">
+    <div class="label">Chat</div>
+    <h2>Pregúntale al agente</h2>
+    <p class="hint">Como lo preguntaría alguien de negocio. Si la pregunta tiene más de una respuesta posible, el agente pregunta cuál.</p>
+    <div class="sugg" id="sugg"></div>
+    <div class="log" id="log" aria-live="polite"></div>
+    <form id="form">
+      <input type="text" id="q" placeholder="¿Cuántos clientes…?" autocomplete="off" aria-label="Pregunta">
+      <select id="mode" aria-label="Modo">
+        <option value="">Automático</option>
+        <option value="modelo">Con modelo</option>
+        <option value="sin_modelo">Sin modelo</option>
+      </select>
+      <button class="primary" type="submit">Preguntar</button>
+    </form>
+  </section>
+
+  <section class="panel full">
+    <div class="label">Validación</div>
+    <h2>Validar el proceso <span class="summary" id="valSummary"></span></h2>
+    <p class="hint">Corre en vivo los chequeos de cada paso sobre la base de prueba, sin modelo. Cada uno dice con qué comando se reproduce.</p>
+    <button class="primary" id="validate">Correr la validación</button>
+    <div class="steps" id="steps"></div>
+    <div id="evalsBox"></div>
+  </section>
+</main>
+
+<script>
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+const history = [];
+const SUGG = ["¿Cuántos clientes activos tenemos?", "¿Cuántos clientes hicieron al menos una transacción en los últimos 30 días?",
+              "¿Cuántos clientes tienen saldo positivo al cierre?", "Borra los clientes inactivos", "¿Cuántos clientes VIP tenemos?"];
+
+async function api(path, body) {
+  const r = await fetch(path, body ? {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body)} : {});
+  const d = await r.json();
+  if (!r.ok) throw new Error(d.error || r.status);
+  return d;
+}
+
+async function loadStatus() {
+  try {
+    const s = (await api("/api/estado")).model;
+    $("#modelDot").classList.toggle("on", s.available);
+    $("#modelText").textContent = s.available ? `Modelo: ${s.model}${s.local ? " · LM Studio, local" : ""}` : `Sin modelo · ${s.reason}`;
+  } catch (e) { $("#modelText").textContent = "Sin conexión con el servidor"; }
+}
+
+async function loadBoard() {
+  const d = await api("/api/tablero");
+  $("#dsHint").textContent = `La misma base (${d.dataset}), tres áreas, tres números correctos. Cada uno con su contrato.`;
+  $("#cards").innerHTML = d.cards.map((c) => `
+    <div class="card">
+      <div class="label">${esc(c.area)}</div>
+      <div class="num">${c.value}</div>
+      <div class="name">${esc(c.name)}</div>
+      <div class="def">${esc(c.short)}</div>
+      <div class="chips"><span class="chip">v${esc(c.version)}</span><span class="chip">${esc(c.period)}</span>
+        <span class="chip">${esc(c.timezone)}</span><span class="chip">Datos: ${c.freshness_hours} h de ${c.freshness_max} h</span></div>
+      <details><summary>Ver contrato y consulta</summary>
+        <div class="def" style="margin-top:6px">${esc(c.definition)} Dueño: ${esc(c.owner)}.</div>
+        <pre>${esc(c.sql)}\n-- parámetros: ${esc(JSON.stringify(c.parameters))}\n-- origen: ${esc(c.source)}\n-- clientes: ${esc(c.customer_ids.join(", "))}</pre>
+      </details>
+    </div>`).join("");
+  $("#parity").innerHTML = `<span class="${d.parity.passed ? "ok" : "no"}">${d.parity.passed ? "Coinciden" : "No coinciden"}</span>
+    El tablero (${d.parity.card}) y el agente (${d.parity.agent}) leen el mismo contrato de Negocio.`;
+}
+
+function botMessage(r) {
+  const check = r.check ? `<span class="${r.check.passed ? (r.check.label === "Sin números" ? "wa" : "ok") : "no"}">${esc(r.check.label)}</span>` : "";
+  const mode = r.mode === "modelo" ? `${esc(r.model || "modelo")}${r.latency_ms ? ` · ${(r.latency_ms / 1000).toFixed(1)} s` : ""}` : "sin modelo";
+  const opts = (r.options || []).map((o) => `<button class="opt" data-mid="${esc(o.metric_id)}">${esc(o.label)}</button>`).join("");
+  const ev = r.evidence ? `<details><summary>Ver evidencia</summary><table class="ev">
+      <tr><td>Métrica</td><td>${esc(r.evidence.area)} · ${esc(r.evidence.metric_id)}</td></tr>
+      <tr><td>Versión</td><td>${esc(r.evidence.version)} · dueño: ${esc(r.evidence.owner)}</td></tr>
+      <tr><td>Período</td><td>${esc(r.evidence.period)}</td></tr>
+      <tr><td>Definición</td><td>${esc(r.evidence.definition)}</td></tr>
+      <tr><td>Origen</td><td>${esc(r.evidence.source)}</td></tr>
+      <tr><td>Clientes</td><td>${esc(r.evidence.customer_ids.join(", "))}</td></tr></table>
+      <pre>${esc(r.evidence.sql)}\n-- parámetros: ${esc(JSON.stringify(r.evidence.parameters))}</pre></details>` : "";
+  const tr = r.trace && r.trace.length ? `<details><summary>Ver traza (${r.trace.length})</summary><ul class="trace">${r.trace.map((t) =>
+      `<li>${esc(t.tool)}(${esc(JSON.stringify(t.args))}) → ${esc(t.status)}${t.value != null ? " · " + esc(t.value) : ""}</li>`).join("")}</ul></details>`
+      : `<div class="meta">Sin llamadas a herramientas</div>`;
+  return `<div>${esc(r.final)}</div>${opts ? `<div class="opts">${opts}</div>` : ""}
+    <div class="meta">${check}<span>${esc(r.check ? r.check.detail : "")}</span><span>· ${mode}</span></div>
+    ${r.note ? `<div class="meta">${esc(r.note)}</div>` : ""}${ev}${tr}`;
+}
+
+function add(cls, html) {
+  const div = document.createElement("div"); div.className = `msg ${cls}`; div.innerHTML = html;
+  $("#log").appendChild(div); $("#log").scrollTop = $("#log").scrollHeight; return div;
+}
+
+async function ask(question, metric_id) {
+  add("user", esc(metric_id ? `Quiero la de ${question}` : question));
+  const wait = add("bot", "Pensando…");
+  try {
+    const r = await api("/api/chat", {question, metric_id, history, mode: $("#mode").value || undefined});
+    wait.innerHTML = botMessage(r);
+    history.push({role: "user", content: question}, {role: "assistant", content: r.final});
+    wait.querySelectorAll(".opt").forEach((b) => b.addEventListener("click", () => ask(b.textContent, b.dataset.mid)));
+  } catch (e) { wait.innerHTML = `<span class="err">Error: ${esc(e.message)}</span>`; }
+}
+
+$("#form").addEventListener("submit", (e) => { e.preventDefault(); const q = $("#q").value.trim(); if (q) { $("#q").value = ""; ask(q); } });
+$("#sugg").innerHTML = SUGG.map((s) => `<button type="button">${esc(s)}</button>`).join("");
+$("#sugg").querySelectorAll("button").forEach((b) => b.addEventListener("click", () => ask(b.textContent)));
+
+$("#validate").addEventListener("click", async () => {
+  $("#validate").disabled = true; $("#valSummary").textContent = "corriendo…";
+  try {
+    const d = await api("/api/validar");
+    const steps = ["Definir", "Consultar", "Comprobar"];
+    $("#steps").innerHTML = steps.map((st) => {
+      const items = d.items.filter((i) => i.step === st);
+      const ok = items.every((i) => i.passed);
+      return `<div class="step"><h3><span class="${ok ? "ok" : "no"}">${items.filter((i) => i.passed).length}/${items.length}</span>${st}</h3>${items.map((i) =>
+        `<div class="check"><b>${i.passed ? "✓" : "✗"} ${esc(i.name)}</b>${esc(i.detail)}<br><code>${esc(i.command)}</code></div>`).join("")}</div>`;
+    }).join("");
+    const total = d.items.length, passed = d.items.filter((i) => i.passed).length;
+    $("#valSummary").innerHTML = `<span class="${passed === total ? "ok" : "no"}">${passed} de ${total} chequeos pasan</span>`;
+    $("#evalsBox").innerHTML = d.evals.length ? `<h3 style="margin:22px 0 0;font-size:15px">Evaluaciones con modelo (corridas guardadas)</h3>
+      <table class="evals"><tr><th>Evaluación</th><th>Modelo</th><th>Resultado</th><th>Cómo se corre</th></tr>${d.evals.map((e) =>
+        `<tr><td>${esc(e.name)}</td><td>${esc(e.model)}</td><td>${esc(e.detail)}</td><td><code>${esc(e.command)}</code></td></tr>`).join("")}</table>` : "";
+  } catch (e) { $("#valSummary").innerHTML = `<span class="err">Error: ${esc(e.message)}</span>`; }
+  $("#validate").disabled = false;
+});
+
+const params = new URLSearchParams(location.search);
+if (["claro", "oscuro"].includes(params.get("tema"))) document.documentElement.dataset.theme = params.get("tema") === "claro" ? "light" : "dark";
+loadStatus(); loadBoard();
+// ?demo: conversación de ejemplo sin modelo y validación, para capturas y presentaciones
+if (new URLSearchParams(location.search).has("demo")) {
+  $("#mode").value = "sin_modelo";
+  (async () => {
+    await ask("¿Cuántos clientes activos tenemos?");
+    await ask("Negocio: Clientes con transacción monetaria contabilizada en 30 días", "business.active_customers_transaction_30d");
+    document.querySelectorAll("#log details")[0]?.setAttribute("open", "");
+    $("#validate").click();
+  })();
+}
+</script>
+</body>
+</html>
